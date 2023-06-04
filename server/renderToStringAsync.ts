@@ -3,7 +3,7 @@
  * https://github.com/facebook/react/issues/24232
  */
 import { flow, pipe } from 'fp-ts/function';
-import ReactDOMServer from 'react-dom/server';
+import * as ReactDOMServer from 'react-dom/server';
 import { Writable } from 'stream';
 
 import * as E from 'fp-ts/Either';
