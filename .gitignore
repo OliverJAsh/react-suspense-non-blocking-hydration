@@ -1,3 +1,4 @@
-/target/
+/target-webpack/
+/target-tsc/
 /config/target/
 /node_modules/

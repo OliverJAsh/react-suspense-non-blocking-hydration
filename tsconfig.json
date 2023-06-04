@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    // We need to feed ES Modules to webpack for tree shaking to work
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "module": "CommonJS",
     "target": "ES2015",
     "strict": true,
     "noImplicitReturns": true,
@@ -10,9 +8,9 @@
     "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
-    "outDir": "./target/",
-    "rootDir": "./src/",
+    "outDir": "./target-tsc/",
+    "rootDir": ".",
     "jsx": "react"
   },
-  "files": ["./src/index.tsx"]
+  "files": ["./client/index.tsx", "./server/index.tsx"]
 }
