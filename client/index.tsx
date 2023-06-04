@@ -1,8 +1,17 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom/client';
+import { createBrowserHistory } from 'history';
+import { hydrateRoot } from 'react-dom/client';
+import { Router } from 'react-router-dom';
 
+import * as React from 'react';
 import { App } from '../shared/App';
 
-const rootEl = document.querySelector('#root')!;
+const container = document.getElementById('root')!;
 
-ReactDOM.hydrateRoot(rootEl, <App />);
+const history = createBrowserHistory();
+
+hydrateRoot(
+  container,
+  <Router history={history}>
+    <App />
+  </Router>,
+);

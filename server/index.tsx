@@ -3,6 +3,7 @@ import { unsafeUnwrap } from 'fp-ts-std/TaskEither';
 import { pipe } from 'fp-ts/lib/function';
 import * as path from 'path';
 import * as React from 'react';
+import { StaticRouter } from 'react-router-dom';
 import { App } from '../shared/App';
 import { renderToStringAsync } from './renderToStringAsync';
 
@@ -11,7 +12,14 @@ const app = express();
 app.use('/a', express.static(path.join(__dirname, '../../target-webpack')));
 
 app.get('/', (req, res) => {
-  const y = pipe(renderToStringAsync(<App />), unsafeUnwrap);
+  const y = pipe(
+    renderToStringAsync(
+      <StaticRouter location={'/'} context={{}}>
+        <App />
+      </StaticRouter>,
+    ),
+    unsafeUnwrap,
+  );
   y.then((x) => {
     res.send(`
   <div id="root">${x}</div>
