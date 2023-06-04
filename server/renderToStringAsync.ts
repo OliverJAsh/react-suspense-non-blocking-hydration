@@ -1,14 +1,8 @@
-/**
- * https://stackoverflow.com/questions/72858719/react-ssr-with-custom-html
- * https://github.com/facebook/react/issues/24232
- */
-import { flow, pipe } from 'fp-ts/function';
+import { pipe } from 'fp-ts/function';
 import * as ReactDOMServer from 'react-dom/server';
 import { Writable } from 'stream';
 
-import * as E from 'fp-ts/Either';
 import * as O from 'fp-ts/Option';
-import * as TE from 'fp-ts/TaskEither';
 import * as React from 'react';
 
 class HtmlWritable extends Writable {
@@ -41,18 +35,11 @@ class HtmlWritable extends Writable {
  * In the future we may consider streaming the response, however this needs more thought as it could
  * have significant implications for HTML caching.
  * https://github.com/reactwg/react-18/discussions/37
- * https://linear.app/unsplash/issue/UNS-1654/investigate-streaming-ssr-with-suspense
- *
- * We catch errors because our React components are not pure. Maybe some day they will be and we can
- * remove this catch.
  */
-export const renderToStringAsync: (
-  children: React.ReactNode,
-) => TE.TaskEither<unknown, string> = (children) => () =>
-  new Promise((resolve) => {
+export const renderToStringAsync = (children: React.ReactNode) =>
+  new Promise((resolve, reject) => {
     const writable = new HtmlWritable();
 
-    // eslint-disable-next-line fp/no-let
     let error: O.Option<unknown> = O.none;
     const stream = ReactDOMServer.renderToPipeableStream(children, {
       onAllReady() {
@@ -60,7 +47,7 @@ export const renderToStringAsync: (
           error,
           O.match(() => {
             stream.pipe(writable);
-          }, flow(E.left, resolve)),
+          }, reject),
         );
       },
       onError(_error) {
@@ -70,6 +57,6 @@ export const renderToStringAsync: (
 
     writable.on('finish', () => {
       const html = writable.getHtml();
-      resolve(E.right(html));
+      resolve(html);
     });
   });
