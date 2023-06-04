@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "module": "CommonJS",
+    "moduleResolution": "node",
     "target": "ES2015",
     "strict": true,
     "noImplicitReturns": true,
@@ -8,9 +9,9 @@
     "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
-    "outDir": "./target-tsc/",
-    "rootDir": ".",
+    "outDir": "../target-tsc/",
+    "rootDir": "..",
     "jsx": "react"
   },
-  "files": ["./client/index.tsx", "./server/index.tsx"]
+  "files": ["./index.tsx"]
 }
