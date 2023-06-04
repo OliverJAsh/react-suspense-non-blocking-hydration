@@ -1,0 +1,26 @@
+{
+  "name": "react-suspense-non-blocking-hydration",
+  "private": true,
+  "scripts": {
+    "compile": "rm -rf ./config/target/ && tsc --project config && rm -rf ./target/ && webpack --config ./config/target/webpack.config.js",
+    "compile:watch": " npm run compile -- --watch",
+    "start:server": "http-server -c-1 ./target/",
+    "format": "prettier --write './**/*.{ts,tsx,js,json,md}' '.prettierrc'"
+  },
+  "dependencies": {
+    "@types/react": "^18.2.8",
+    "@types/react-dom": "^18.2.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/webpack": "^5.28.1",
+    "copy-webpack-plugin": "^11.0.0",
+    "http-server": "^14.1.1",
+    "prettier": "^2.8.8",
+    "ts-loader": "^9.4.3",
+    "typescript": "^5.1.3",
+    "webpack": "^5.85.0",
+    "webpack-cli": "^5.1.2"
+  }
+}
