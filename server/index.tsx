@@ -12,7 +12,7 @@ const app = express();
 app.use('/a', express.static(path.join(__dirname, '../../target-webpack')));
 
 app.get('/', (req, res) => {
-  const y = pipe(
+  const htmlPromise = pipe(
     renderToStringAsync(
       <StaticRouter location={'/'} context={{}}>
         <App />
@@ -20,9 +20,9 @@ app.get('/', (req, res) => {
     ),
     unsafeUnwrap,
   );
-  y.then((x) => {
+  htmlPromise.then((html) => {
     res.send(`
-  <div id="root">${x}</div>
+  <div id="root">${html}</div>
   <script src="a/index.js"></script>
   `);
   });
