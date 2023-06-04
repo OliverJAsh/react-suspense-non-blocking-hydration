@@ -1,13 +1,8 @@
 import * as React from 'react';
+import { Expensive } from './Expensive';
 
-export const Expensive = () => {
-  const end = Date.now() + 500;
-  while (Date.now() < end) {
-    // do nothing
-  }
+const Nested = React.lazy(() => import('./Nested'));
 
-  return <div>Expensive</div>;
-};
 export const App = () => (
   <div>
     <div>App</div>
@@ -15,9 +10,7 @@ export const App = () => (
     <Expensive />
 
     <React.Suspense>
-      <div>Suspense</div>
-      <Expensive />
-      <Expensive />
+      <Nested />
     </React.Suspense>
   </div>
 );
