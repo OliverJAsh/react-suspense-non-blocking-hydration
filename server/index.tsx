@@ -1,7 +1,6 @@
 import * as express from 'express';
 import * as path from 'path';
 import * as React from 'react';
-import { StaticRouter } from 'react-router-dom';
 import { App } from '../shared/App';
 import { renderToStringAsync } from './renderToStringAsync';
 
@@ -10,11 +9,7 @@ const app = express();
 app.use('/a', express.static(path.join(__dirname, '../../target-webpack')));
 
 app.get('/', (req, res) => {
-  const htmlPromise = renderToStringAsync(
-    <StaticRouter location={'/'} context={{}}>
-      <App />
-    </StaticRouter>,
-  );
+  const htmlPromise = renderToStringAsync(<App />);
   htmlPromise.then((html) => {
     res.send(`
   <div id="root">${html}</div>

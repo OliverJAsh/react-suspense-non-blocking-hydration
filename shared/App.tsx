@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { Expensive } from './Expensive';
 
@@ -11,10 +10,9 @@ const NestedWithSuspenseAndMemo = React.memo(() => (
   </React.Suspense>
 ));
 
-export const App = () => {
-  const history = useHistory();
+export const App = ({ history }: any) => {
   React.useEffect(() => {
-    history.replace(history.location);
+    history.replace({});
   }, []);
 
   return (
